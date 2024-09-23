@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Flask Bieb API
+  description: Test API for a bieb
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: DIP2 API example
+
+paths:
+  /api/books:
+    get:
+      summary: Get all books
+      description: Retrieve a list of all books in the library.
+      responses:
+        '200':
+          description: A list of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Add a new book
+      description: Add a new book to the library.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+      responses:
+        '201':
+          description: Book added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "To Kill a Mockingbird"
+        author:
+          type: string
+          example: "Harper Lee"
+      required:
+        - id
+        - title
+        - author
+
+    NewBook:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "The Catcher in the Rye"
+        author:
+          type: string
+          example: "J.D. Salinger"
+      required:
+        - title
+        - author
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Missing title or author"

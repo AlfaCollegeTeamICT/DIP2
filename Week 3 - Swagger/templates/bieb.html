@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Library{% endblock %}
+
+{% block content %}
+<h2>Bieb Collection</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="2">No books available in the library.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Form to add a new book -->
+<h3>Add a New Book</h3>
+<form action="/add_book" method="POST" class="mb-4">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="author" class="form-label">Author</label>
+        <input type="text" class="form-control" id="author" name="author" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Book</button>
+</form>
+
+{% endblock %}
