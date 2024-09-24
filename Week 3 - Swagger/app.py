@@ -49,7 +49,7 @@ def get_books():
     return jsonify(books_list)
 
 @app.route('/bieb')
-def library():
+def bieb():
     books = Book.query.all()
     return render_template('bieb.html', books=books)
 
